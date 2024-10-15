@@ -26,7 +26,6 @@ public class AuthController {
         newdUser.setFullName(user.getFullName());
 
         User saveduser = userRepository.save(newdUser);
-        //inside userReposiotry we'll get one metod that save our data in database
 
 
         return new ResponseEntity<>(saveduser, HttpStatus.CREATED) ;
