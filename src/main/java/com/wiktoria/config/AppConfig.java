@@ -1,5 +1,6 @@
 package com.wiktoria.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -8,23 +9,22 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfigurationSource;
 
 
-import java.security.Security;
-
 @Configuration
 public class AppConfig {
 
+    @Bean
     SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         http.sessionManagement(managment->managment.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(Authorize->Authorize.requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll())
                 .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf->csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSoirce()));
-        return null;
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()));
+        return http.build();
     }
 
-    //access control for other websites in case if they want to use my backend
-    private CorsConfigurationSource corsConfigurationSoirce() {
+    //access control for other websites in case if they want to use my backend for back
+    private CorsConfigurationSource corsConfigurationSource() {
         return null;
     }
 
