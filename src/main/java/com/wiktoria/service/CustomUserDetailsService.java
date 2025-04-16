@@ -22,6 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         List<GrantedAuthority> authorityList = new ArrayList<>();
 
-        return org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),authorityList);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),authorityList);
     }
 }
